@@ -4,12 +4,41 @@
 import streamlit as st
 
 import dados
+def montar_tabela(livros):
+    tabela = []
+    for livro in livros:
+        linha = {
+            "Titulo" : livro["titulo"],
+            "Categoria": livro["categoria"],
+            "Nota": livro["nota"] * "⭐",
+            "Preco": f"£{livro["preco"]:.2f}"
+            "Faixa": classificar_preco(livro['preco'])
+        }
+        tabela.append(linha)
+    return tabela
 
+def classificar_preco(preco):
+    if preco < 40:
+        return "Barato"
+    elif preco <= 40:
+        return "Medio"
+    else:
+        return "Caro"
+def contar_por_faixa_dict(livros):
+    contagem ={}
+    for livro in livros:
+        faixa = classificar_preco(livro["preco"])
+        if faixa in contagem:
+            contagem[faixa] = contagem[faixa] + 1
+        else
+            contagem[faixa] = 1
+            
 def main():
     st.set_page_config(page_title="Dashboard de Livros", page_icon="📚", layout="wide")
     st.title("📚 Dashboard de Livros")
 
-    livros = dados.ler_livros()
+    livros = dados.carregar_livros()
+    tabela = montar_tabela(livros)
 
     col1, col2, col3, col4 = st.columns(4)
     qtd_livros = len(livros)
@@ -25,7 +54,7 @@ def main():
     col4.metric("Livro mais caro", mais_caro["preco"])
     col4.caption(mais_caro["titulo"])
 
-    st.dataframe(livros)
+    st.dataframe(tabela)
 
 
 if __name__ == "__main__":
