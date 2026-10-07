@@ -94,7 +94,19 @@ def carregar_livros():
     return preparar_livros(ler_livros())
 
 
+def filtrar_livros(livro_pesquisado):
+    livros_filtrados = []
+    livros_cadastrados = carregar_livros()
+    contador = 0
+    for livro in livros_cadastrados:
+        if livro_pesquisado in livro["titulo"]:
+            livros_filtrados.append(livro)
+            contador += 1
+    return livros_filtrados, contador
+
+
 if __name__ == "__main__":
     livros = ler_livros()
     print(f"{len(livros)} livros carregados")
     print("Primeiro livro:", livros[0])
+
