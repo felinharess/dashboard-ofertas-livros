@@ -75,8 +75,6 @@ def main():
     """,
     unsafe_allow_html=True
     )   
-        
-
     else:
         tabela = montar_tabela(livros)
         st.write(f"{contador} livros filtrados" if contador != 1000 else "")
