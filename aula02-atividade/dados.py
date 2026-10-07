@@ -99,7 +99,7 @@ def filtrar_livros(livro_pesquisado):
     livros_cadastrados = carregar_livros()
     contador = 0
     for livro in livros_cadastrados:
-        if livro_pesquisado in livro["titulo"]:
+        if livro_pesquisado.lower() in livro["titulo"].lower():
             livros_filtrados.append(livro)
             contador += 1
     return livros_filtrados, contador
